@@ -67,8 +67,8 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           stack_file_name: docker-compose.yml
           script: |
-            sudo docker pull leosan/foodgram:latest
-            sudo docker pull leosan/foodgram-frontend:latest
+            sudo docker pull sanyadeath/foodgram:latest
+            sudo docker pull sanyadeath/foodgram-frontend:latest
             sudo docker-compose stop
             sudo docker-compose rm web
             touch .env
