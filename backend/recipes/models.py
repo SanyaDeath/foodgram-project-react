@@ -15,7 +15,7 @@ class Ingredient(models.Model):
         ordering = ['name', ]
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
-    
+
     def __str__(self):
         return f'{self.name} {self.measure_unit}'
 
@@ -31,7 +31,7 @@ class Tag(models.Model):
         ordering = ['id', ]
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
-    
+
     def __str__(self):
         return self.name
 
@@ -46,7 +46,7 @@ class Recipe(models.Model):
                             max_length=200)
     image = models.ImageField('Изображение',
                               upload_to='recipes/images')
-    text = models.TextField('Cпособ приготовления', 
+    text = models.TextField('Cпособ приготовления',
                             max_length=1280)
     ingredients = models.ManyToManyField(Ingredient,
                                          through='RecipeIngredient',
@@ -64,7 +64,7 @@ class Recipe(models.Model):
         ordering = ('name', 'pub_date',)
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
-    
+
     def __str__(self):
         return f'{self.author}: {self.name}'
 
@@ -74,15 +74,15 @@ class RecipeIngredient(models.Model):
                                on_delete=models.CASCADE,
                                verbose_name='Рецепт')
     ingredient = models.ForeignKey(Ingredient,
-                               on_delete=models.CASCADE,
-                               verbose_name='Ингредиент')
+                                   on_delete=models.CASCADE,
+                                   verbose_name='Ингредиент')
     amount = models.PositiveSmallIntegerField(
         verbose_name='Количество')
-    
+
     class Meta:
         verbose_name = 'Ингредиенты'
         verbose_name_plural = verbose_name
-    
+
 
 class RecipeTag(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
@@ -94,7 +94,7 @@ class RecipeTag(models.Model):
 
 
 class Follow(models.Model):
-    user = models.ForeignKey(User, 
+    user = models.ForeignKey(User,
                              verbose_name='Подписчик',
                              on_delete=models.CASCADE,
                              related_name='follower')
@@ -104,7 +104,7 @@ class Follow(models.Model):
                                related_name='following')
     created = models.DateTimeField(auto_now_add=True,
                                    verbose_name='Дата создания')
-    
+
     class Meta:
         ordering = ['created']
         verbose_name = 'Подписка'
@@ -114,7 +114,7 @@ class Follow(models.Model):
                 fields=['user', 'author'], name='unique_follow'
             )
         ]
-    
+
     def __str__(self):
         return f'{self.user} following {self.author}'
 

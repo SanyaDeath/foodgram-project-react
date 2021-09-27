@@ -18,6 +18,7 @@ from .models import (
 
 User = get_user_model()
 
+
 class ShowRecipeAddedSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
 
@@ -30,7 +31,7 @@ class ShowRecipeAddedSerializer(serializers.ModelSerializer):
             'cooking_time'
         )
         read_only_fields = fields
-    
+
     def get_image(self, obj):
         request = self.context.get('request')
         photo_url = obj.image.url
@@ -75,7 +76,7 @@ class IngredientInRecipeSerializer(serializers.ModelSerializer):
             'measure_unit',
             'amount'
         )
-    
+
     def get_ingredients(self, obj):
         request = RecipeIngredient.objects.filter(recipe=obj)
         return IngredientInRecipeSerializer(request, many=True).data
@@ -86,7 +87,7 @@ class IngredientInRecipeSerializer(serializers.ModelSerializer):
             return False
         return Favorite.objects.filter(recipe=obj,
                                        user=request.user).exists()
-    
+
     def get_in_shopping(self, obj):
         request = self.context.get('request')
         if not request or request.user.is_anonymous:
@@ -180,8 +181,8 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
             if int(item['amount']) < 0:
                 raise serializers.ValidationError(
                     {'ingredients': (
-                        'Убедитесь, что значение количества ингредиента больше 0')
-                    }
+                        'Убедитесь, что значение',
+                        'количества ингредиента больше 0')}
                 )
         return data
 
@@ -272,7 +273,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
                     recipe=recipe).exists()):
             raise serializers.ValidationError()
         return data
-    
+
     def to_representation(self, instance):
         request = self.context.get('request')
         context = {'request': request}
@@ -291,8 +292,7 @@ class ShoppingSerializer(FavoriteSerializer):
         if (self.context.get('request').method == 'GET'
                 and Shopping.objects.filter(
                     user=user,
-                    recipe__id=recipe_id
-                ).exists()):
+                    recipe__id=recipe_id).exists()):
             raise serializers.ValidationError(
                 'Продукты уже в корзине')
 

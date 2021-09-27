@@ -24,6 +24,7 @@ class FavoriteAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'recipe', 'added_date')
     search_fields = ('user', 'recipe')
 
+
 @admin.register(Shopping)
 class ShoppingAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'recipe', 'added_date')
