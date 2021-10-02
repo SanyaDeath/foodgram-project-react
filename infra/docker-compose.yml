@@ -11,7 +11,7 @@ services:
       - ./.env
 
   backend:
-    image: sanyadeath/foodgram:v1.03
+    image: sanyadeath/foodgram:v1.06
     restart: always
     depends_on:
       - db
@@ -22,7 +22,7 @@ services:
       - ./.env
 
   frontend:
-    image: sanyadeath/foodgram-frontend:v1.02
+    image: sanyadeath/foodram-frontend:v1.02
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
