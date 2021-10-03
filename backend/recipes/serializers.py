@@ -83,14 +83,14 @@ class IngredientInRecipeSerializer(serializers.ModelSerializer):
 
     def get_is_favorite(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_anonymous:
+        if not request or request.user.is_authenticated:
             return False
         return Favorite.objects.filter(recipe=obj,
                                        user=request.user).exists()
 
     def get_in_shopping(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_anonymous:
+        if not request or request.user.is_authenticated:
             return False
         return Shopping.objects.filter(recipe=obj,
                                        user=request.user).exists()
@@ -136,14 +136,14 @@ class ShowRecipeSerializer(serializers.ModelSerializer):
 
     def get_is_favorited(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_anonymous:
+        if not request or request.user.is_authenticated:
             return False
         user = request.user
         return Favorite.objects.filter(recipe=obj, user=user).exists()
 
     def get_is_in_shopping(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_anonymous:
+        if not request or request.user.is_authenticated:
             return False
         user = request.user
         return Shopping.objects.filter(recipe=obj, user=user).exists()
@@ -201,7 +201,7 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
         for ingredient in ingredients_data:
             ingredient_model = ingredient['id']
             amount = ingredient['amount']
-            RecipeIngredient.objects.create(
+            RecipeIngredient.objects.bulk_create(
                 ingredient=ingredient_model,
                 recipe=recipe,
                 amount=amount
@@ -221,7 +221,7 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
             )
         RecipeIngredient.objects.filter(recipe=instance).delete()
         for new_ingredient in ingredient_data:
-            RecipeIngredient.objects.create(
+            RecipeIngredient.objects.bulk_create(
                 ingredient=new_ingredient['id'],
                 recipe=instance,
                 amount=new_ingredient['amount']
@@ -327,7 +327,7 @@ class ShowFollowSerializer(serializers.ModelSerializer):
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_anonymous:
+        if not request or request.user.is_authenticated:
             return False
         return obj.follower.filter(user=obj, author=request.user).exists()
 
