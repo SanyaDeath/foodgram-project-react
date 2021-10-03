@@ -14,7 +14,7 @@
 
 ---
 
-Настроен Continuous Integration и Continuous Deployment для проекта Foodgram: автоматический запуск тестов, обновление образов на Docker Hub и автоматический деплой на боевой сервер при пуше в ветку main
+Настроен Continuous Integration и Continuous Deployment для проекта Foodgram: автоматический запуск тестов, обновление образов на Docker Hub и автоматический деплой на боевой сервер при пуше в ветку main.
 
 ---
 ### Технологии
