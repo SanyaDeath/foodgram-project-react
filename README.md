@@ -58,4 +58,4 @@ https://docs.docker.com/engine/install/
 ### Работал над проектом: Алексей Белов - ученик Яндекс.Практикум
 https://hub.docker.com/repository/docker/sanyadeath/foodgram - dockerhub - dockerhub
 
-http://84.252.128.134/admin/login/?next=/admin/ - облако 
+http://84.252.128.134/ - облако 
