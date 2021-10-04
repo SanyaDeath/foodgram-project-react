@@ -27,7 +27,7 @@ urlpatterns = [
          DownloadShopping.as_view(), name='dowload_shopping'),
     path('recipes/<int:recipe_id>/favorite/',
          FavoriteViewSet.as_view(), name='favorite'),
-    path('recipes/<int:recipe_id>/shopping_cart/',
+    path('recipes/<int:recipe_id>/shopping/',
          ShoppingViewSet.as_view(), name='shopping'),
     path('', include(router.urls)),
 ]

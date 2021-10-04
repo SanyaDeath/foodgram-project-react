@@ -83,14 +83,14 @@ class IngredientInRecipeSerializer(serializers.ModelSerializer):
 
     def get_is_favorite(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_authenticated:
+        if not request.user.is_authenticated:
             return False
         return Favorite.objects.filter(recipe=obj,
                                        user=request.user).exists()
 
     def get_in_shopping(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_authenticated:
+        if not request.user.is_authenticated:
             return False
         return Shopping.objects.filter(recipe=obj,
                                        user=request.user).exists()
@@ -136,14 +136,14 @@ class ShowRecipeSerializer(serializers.ModelSerializer):
 
     def get_is_favorited(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_authenticated:
+        if not request.user.is_authenticated:
             return False
         user = request.user
         return Favorite.objects.filter(recipe=obj, user=user).exists()
 
     def get_is_in_shopping(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_authenticated:
+        if not request.user.is_authenticated:
             return False
         user = request.user
         return Shopping.objects.filter(recipe=obj, user=user).exists()
@@ -327,7 +327,7 @@ class ShowFollowSerializer(serializers.ModelSerializer):
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_authenticated:
+        if not request.user.is_authenticated:
             return False
         return obj.follower.filter(user=obj, author=request.user).exists()
 
