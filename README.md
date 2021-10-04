@@ -55,7 +55,7 @@ https://docs.docker.com/engine/install/
 ### Заполнения базы начальными данными
 ``` docker-compose exec backend python manage.py loaddata fixtures.json ```Shell
 
-### Работал над проектом: Алексей Белов - ученик Яндекс.Практикум
+### Работал над проектом: Алексей А. Белов - ученик Яндекс.Практикум
 https://hub.docker.com/repository/docker/sanyadeath/foodgram - dockerhub - dockerhub
 
 http://84.252.128.134/ - облако 
