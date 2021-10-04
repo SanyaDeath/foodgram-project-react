@@ -123,7 +123,7 @@ class Shopping_CartViewSet(APIView):
         )
 
 
-class DownloadShopping_Cart(APIView):
+class Download_Shopping_Cart(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):

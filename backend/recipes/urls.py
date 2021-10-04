@@ -5,11 +5,11 @@ from .views import (
     FavoriteViewSet,
     IngredientViewSet,
     RecipeViewSet,
-    ShoppingViewSet,
+    Shopping_CartViewSet,
     TagViewSet,
     ListFollowViewSet,
     FollowViewSet,
-    DownloadShopping
+    Download_Shopping_Cart
 )
 
 router = DefaultRouter()
@@ -24,10 +24,10 @@ urlpatterns = [
     path('users/<int:author_id>/subscribe/',
          FollowViewSet.as_view(), name='subscribe'),
     path('recipes/download_shopping/',
-         DownloadShopping.as_view(), name='dowload_shopping'),
+         Download_Shopping_Cart.as_view(), name='dowload_shopping'),
     path('recipes/<int:recipe_id>/favorite/',
          FavoriteViewSet.as_view(), name='favorite'),
     path('recipes/<int:recipe_id>/shopping/',
-         ShoppingViewSet.as_view(), name='shopping'),
+         Shopping_CartViewSet.as_view(), name='shopping'),
     path('', include(router.urls)),
 ]

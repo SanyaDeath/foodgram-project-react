@@ -13,7 +13,7 @@ from .models import (
     RecipeTag,
     Follow,
     Favorite,
-    Shopping
+    Shopping_Cart
 )
 
 User = get_user_model()
@@ -88,12 +88,12 @@ class IngredientInRecipeSerializer(serializers.ModelSerializer):
         return Favorite.objects.filter(recipe=obj,
                                        user=request.user).exists()
 
-    def get_in_shopping(self, obj):
+    def get_in_shopping_cart(self, obj):
         request = self.context.get('request')
         if not request.user.is_authenticated:
             return False
-        return Shopping.objects.filter(recipe=obj,
-                                       user=request.user).exists()
+        return Shopping_Cart.objects.filter(recipe=obj,
+                                            user=request.user).exists()
 
 
 class AddIngredientToRecipeSerializer(serializers.ModelSerializer):
@@ -146,7 +146,7 @@ class ShowRecipeSerializer(serializers.ModelSerializer):
         if not request.user.is_authenticated:
             return False
         user = request.user
-        return Shopping.objects.filter(recipe=obj, user=user).exists()
+        return Shopping_Cart.objects.filter(recipe=obj, user=user).exists()
 
 
 class CreateRecipeSerializer(serializers.ModelSerializer):
@@ -282,15 +282,15 @@ class FavoriteSerializer(serializers.ModelSerializer):
             context=context).data
 
 
-class ShoppingSerializer(FavoriteSerializer):
+class Shopping_CartSerializer(FavoriteSerializer):
     class Meta(FavoriteSerializer.Meta):
-        model = Shopping
+        model = Shopping_Cart
 
     def validate(self, data):
         user = self.context.get('request').user
         recipe_id = data['recipe'].id
         if (self.context.get('request').method == 'GET'
-                and Shopping.objects.filter(
+                and Shopping_Cart.objects.filter(
                     user=user,
                     recipe__id=recipe_id).exists()):
             raise serializers.ValidationError(
@@ -299,7 +299,7 @@ class ShoppingSerializer(FavoriteSerializer):
         recipe = get_object_or_404(Recipe, id=recipe_id)
 
         if (self.context.get('request').method == 'DELETE'
-                and not Shopping.objects.filter(
+                and not Shopping_Cart.objects.filter(
                     user=user,
                     recipe=recipe).exists()):
             raise serializers.ValidationError()
