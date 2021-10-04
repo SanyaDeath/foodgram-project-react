@@ -12,7 +12,7 @@ from .models import (Tag,
                      Ingredient,
                      Recipe,
                      Favorite,
-                     Shopping,
+                     Shopping_Cart,
                      RecipeIngredient,
                      Follow
                      )
@@ -23,7 +23,7 @@ from .serializers import (TagSerializer,
                           ShowRecipeSerializer,
                           CreateRecipeSerializer,
                           FavoriteSerializer,
-                          ShoppingSerializer,
+                          Shopping_CartSerializer,
                           ShowFollowSerializer,
                           FollowSerializer
                           )
@@ -97,7 +97,7 @@ class FavoriteViewSet(APIView):
         )
 
 
-class ShoppingViewSet(APIView):
+class Shopping_CartViewSet(APIView):
     permission_classes = [IsAuthenticated, ]
 
     def get(self, request, recipe_id):
@@ -108,7 +108,7 @@ class ShoppingViewSet(APIView):
         }
 
         context = {'request': request}
-        serializer = ShoppingSerializer(data=data, context=context)
+        serializer = Shopping_CartSerializer(data=data, context=context)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -117,20 +117,20 @@ class ShoppingViewSet(APIView):
         user = request.user
         recipe = get_object_or_404(Recipe, id=recipe_id)
 
-        Shopping.objects.get(user=user, recipe=recipe).delete()
+        Shopping_Cart.objects.get(user=user, recipe=recipe).delete()
         return Response(
             status=status.HTTP_204_NO_CONTENT
         )
 
 
-class DownloadShopping(APIView):
+class DownloadShopping_Cart(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        shopping = request.user.shopping.all()
+        shopping_cart = request.user.shopping_cart.all()
         buying_list = {}
 
-        for item in shopping:
+        for item in shopping_cart:
             ingredients = RecipeIngredient.objects.filter(recipe=item.recipe)
             for ingredient in ingredients:
                 amount = ingredient.amount

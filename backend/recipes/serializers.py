@@ -123,7 +123,7 @@ class ShowRecipeSerializer(serializers.ModelSerializer):
             'author',
             'ingredients',
             'is_favorited',
-            'is_in_shopping',
+            'is_in_shopping_cart',
             'name',
             'image',
             'text',
@@ -141,7 +141,7 @@ class ShowRecipeSerializer(serializers.ModelSerializer):
         user = request.user
         return Favorite.objects.filter(recipe=obj, user=user).exists()
 
-    def get_is_in_shopping(self, obj):
+    def get_is_in_shopping_cart(self, obj):
         request = self.context.get('request')
         if not request.user.is_authenticated:
             return False

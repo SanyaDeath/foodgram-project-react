@@ -153,17 +153,17 @@ class Favorite(models.Model):
         return f'{self.user} added {self.recipe}'
 
 
-class Shopping(models.Model):
+class Shopping_Cart(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='shopping',
+        related_name='shopping_cart',
         verbose_name='Пользователь'
     )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        related_name='shopping',
+        related_name='shopping_cart',
         verbose_name='Рецепт'
     )
     added_date = models.DateTimeField(
@@ -176,7 +176,7 @@ class Shopping(models.Model):
         verbose_name_plural = verbose_name
         constraints = [models.UniqueConstraint(
             fields=['user', 'recipe'],
-            name='unique_shopping')]
+            name='unique_shopping_cart')]
 
     def __str__(self):
         return f'{self.user} added {self.recipe}'
