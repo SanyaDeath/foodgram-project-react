@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate
+# from django.contrib.auth import authenticate
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
 
