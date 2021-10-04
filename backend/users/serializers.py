@@ -40,27 +40,27 @@ class UserDetailSerializer(UserSerializer):
         return Follow.objects.filter(user=request.user, author=obj).exists()
 
 
-class AuthTokenSerializer(serializers.Serializer):
-    email = serializers.EmailField(label='Email')
-    password = serializers.CharField(
-        label=('Password',),
-        style={'input_type': 'password'},
-        trim_whitespace=False
-    )
+# class AuthTokenSerializer(serializers.Serializer):
+#     email = serializers.EmailField(label='Email')
+#     password = serializers.CharField(
+#         label=('Password',),
+#         style={'input_type': 'password'},
+#         trim_whitespace=False
+#     )
 
-    def validate(self, attrs):
-        email = attrs.get('email')
-        password = attrs.get('password')
+#     def validate(self, attrs):
+#         email = attrs.get('email')
+#         password = attrs.get('password')
 
-        if email and password:
-            user = authenticate(request=self.context.get('request'),
-                                email=email, password=password)
-            if not user:
-                msg = 'Неверные учетные данные.'
-                raise serializers.ValidationError(msg, code='authorization')
-        else:
-            msg = 'Запрос должен содержать email и пароль.'
-            raise serializers.ValidationError(msg, code='authorization')
+#         if email and password:
+#             user = authenticate(request=self.context.get('request'),
+#                                 email=email, password=password)
+#             if not user:
+#                 msg = 'Неверные учетные данные.'
+#                 raise serializers.ValidationError(msg, code='authorization')
+#         else:
+#             msg = 'Запрос должен содержать email и пароль.'
+#             raise serializers.ValidationError(msg, code='authorization')
 
-        attrs['user'] = user
-        return attrs
+#         attrs['user'] = user
+#         return attrs
