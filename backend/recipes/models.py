@@ -58,8 +58,8 @@ class Recipe(models.Model):
         verbose_name='Время приготовления')
     pub_date = models.DateTimeField(verbose_name='Дата добавления',
                                     auto_now_add=True,
-                                    db_index=True,
-                                    slug=models.SlugField(verbose_name='слаг'))
+                                    db_index=True)
+    slug = models.SlugField(verbose_name='слаг')
 
     class Meta:
         ordering = ('name', 'pub_date',)
