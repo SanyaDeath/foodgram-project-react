@@ -12,7 +12,7 @@ from .models import (Tag,
                      Ingredient,
                      Recipe,
                      Favorite,
-                     Shopping_Cart,
+                     Shopping,
                      RecipeIngredient,
                      Follow
                      )
@@ -23,7 +23,7 @@ from .serializers import (TagSerializer,
                           ShowRecipeSerializer,
                           CreateRecipeSerializer,
                           FavoriteSerializer,
-                          Shopping_CartSerializer,
+                          ShoppingSerializer,
                           ShowFollowSerializer,
                           FollowSerializer
                           )
@@ -97,7 +97,7 @@ class FavoriteViewSet(APIView):
         )
 
 
-class Shopping_CartViewSet(APIView):
+class ShoppingViewSet(APIView):
     permission_classes = [IsAuthenticated, ]
 
     def get(self, request, recipe_id):
@@ -108,7 +108,7 @@ class Shopping_CartViewSet(APIView):
         }
 
         context = {'request': request}
-        serializer = Shopping_CartSerializer(data=data, context=context)
+        serializer = ShoppingSerializer(data=data, context=context)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -117,20 +117,20 @@ class Shopping_CartViewSet(APIView):
         user = request.user
         recipe = get_object_or_404(Recipe, id=recipe_id)
 
-        Shopping_Cart.objects.get(user=user, recipe=recipe).delete()
+        Shopping.objects.get(user=user, recipe=recipe).delete()
         return Response(
             status=status.HTTP_204_NO_CONTENT
         )
 
 
-class Download_Shopping_Cart(APIView):
+class DownloadShopping(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        shopping_cart = request.user.shopping_cart.all()
+        shopping = request.user.shopping.all()
         buying_list = {}
 
-        for item in shopping_cart:
+        for item in shopping:
             ingredients = RecipeIngredient.objects.filter(recipe=item.recipe)
             for ingredient in ingredients:
                 amount = ingredient.amount
@@ -143,8 +143,8 @@ class Download_Shopping_Cart(APIView):
                         'amount': amount
                     }
                 else:
-                    buying_list[name]['amount'] += (buying_list[name]['amount']
-                                                    + amount)
+                    buying_list[name]['amount'] = (buying_list[name]['amount']
+                                                   + amount)
 
         wishlist = []
         for item in buying_list:
