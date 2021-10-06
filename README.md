@@ -41,19 +41,19 @@ https://docs.docker.com/engine/install/
 ```docker-compose exec backend python manage.py makemigrations users```Shell
 
 ### Создание миграций приложения рецептов
-```docker-compose exec backend python manage.py makemigrations recipes```Shell
-
-### Миграции
-```docker-compose exec backend python manage.py migrate --noinput```Shell
+```docker-compose exec backend python manage.py makemigrations api```Shell
 
 ### Сбор статики
 ```docker-compose exec backend python manage.py collectstatic --no-input```Shell
+
+### Миграции
+```docker-compose exec backend python manage.py migrate --noinput```Shell
 
 ### Cоздания суперпользователя 
 ``` docker-compose exec backend python manage.py createsuperuser ```Shell
 
 ### Заполнения базы начальными данными
-``` docker-compose exec backend python manage.py loaddata fixtures.json ```Shell
+``` docker-compose exec backend python manage.py loaddata fixtures/fixtures.json ```Shell
 
 ### Работал над проектом: Алексей A. Белов - ученик Яндекс.Практикум
 https://hub.docker.com/repository/docker/sanyadeath/foodgram - dockerhub - dockerhub
