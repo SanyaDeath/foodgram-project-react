@@ -18,7 +18,7 @@ def get_ingredients_list(request):
             ingredients_dict[name] = {
                 'measurement_unit': measurement_unit,
                 'amount': amount
-                }
+            }
         else:
             ingredients_dict[name]['amount'] += amount
     to_buy = []
