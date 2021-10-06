@@ -1,5 +1,5 @@
 # praktikum_new_diplom
-![foodgram-project-react workflow](https://github.com/SanyaDeath/foodgram-project-react/actions/workflows/foodgram_main.yml/badge.svg)
+![foodgram-project-react workflow](https://github.com/SanyaDeath/foodgram-project-react/actions/workflows/main.yml/badge.svg)
 
 Демоверсия сайта: <http://84.252.128.134>
 
@@ -7,7 +7,7 @@
 
 Это проект Foodgram, сервис с возможностями:
 - Регистрация пользователей,
-- Создание, изменение и удаление репецптов.
+- Создание, изменение и удаление рецептов.
 - Фильтрация рецептов по тегам.
 - Подписка на авторов и просмотр рецептов определенного автора.
 - Добавление рецептов и формирование списка покупок для их приготовления.
