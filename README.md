@@ -1,4 +1,4 @@
-# praktikum_new_diplom
+# foodgram
 ![foodgram-project-react workflow](https://github.com/SanyaDeath/foodgram-project-react/actions/workflows/main.yml/badge.svg)
 
 Демоверсия сайта: <http://84.252.128.134>
