@@ -4,7 +4,7 @@
 Демоверсия сайта: <http://84.252.128.134>
 
 Это проект Foodgram, сервис с возможностями:
-- Регистрация пользователей,
+- Регистрация пользователей.
 - Создание, изменение и удаление рецептов.
 - Фильтрация рецептов по тегам.
 - Подписка на авторов и просмотр рецептов определенного автора.
@@ -37,7 +37,7 @@ git clone https://github.com/sanyadeath/foodgram-project-react
 ```
 cd foodgram-project-react
 ```
-### В папке **backend** создать файл .env с содержимым переменных окружения:
+### В папке **infra** создать файл .env с содержимым переменных окружения:
 
 ```
 DB_ENGINE=db
@@ -52,25 +52,25 @@ DB_PORT=postgres
 https://docs.docker.com/engine/install/
 
 ### Запуск проекта из директории infra
-``` docker-compose up -d --build ```Shell
+``` docker-compose up -d --build ``` Shell
 
 ### Создание миграций приложения пользователей
-```docker-compose exec backend python manage.py makemigrations users```Shell
+```docker-compose exec backend python manage.py makemigrations users``` Shell
 
 ### Создание миграций приложения рецептов
-```docker-compose exec backend python manage.py makemigrations api```Shell
+```docker-compose exec backend python manage.py makemigrations api``` Shell
 
 ### Сбор статики
-```docker-compose exec backend python manage.py collectstatic --no-input```Shell
+```docker-compose exec backend python manage.py collectstatic --no-input``` Shell
 
 ### Миграции
-```docker-compose exec backend python manage.py migrate --noinput```Shell
+```docker-compose exec backend python manage.py migrate --noinput``` Shell
 
 ### Cоздания суперпользователя 
-``` docker-compose exec backend python manage.py createsuperuser ```Shell
+``` docker-compose exec backend python manage.py createsuperuser ``` Shell
 
 ### Заполнения базы начальными данными
-``` docker-compose exec backend python manage.py loaddata fixtures/fixtures.json ```Shell
+``` docker-compose exec backend python manage.py loaddata fixtures/fixtures.json ``` Shell
 
 ### Работал над проектом: Алексей A. Белов - ученик Яндекс.Практикум
 https://hub.docker.com/repository/docker/sanyadeath/foodgram - dockerhub - dockerhub
