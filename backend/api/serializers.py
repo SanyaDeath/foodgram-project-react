@@ -73,7 +73,7 @@ class ShowRecipeFullSerializer(serializers.ModelSerializer):
 
 class AddIngredientRecipeSerializer(serializers.ModelSerializer):
     id = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
-    amount = serializers.IntegerField()
+    amount = serializers.IntegerField(min_value=1)
 
     class Meta:
         model = IngredientRecipe
@@ -162,8 +162,7 @@ class FavouriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favorite
-        validators = [
-            serializers.UniqueTogetherValidator(
+        validators = [serializers.UniqueTogetherValidator(
             queryset=Favorite.objects.all(),
             fields=('user', 'recipe'),
             message='Рецепт уже добавлен в избранное!'
@@ -181,15 +180,11 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShoppingCart
-        fields = ('user', 'recipe')
-
-    def validate(self, data):
-        user = data['user']
-        recipe_id = data['recipe'].id
-        if ShoppingCart.objects.filter(user=user,
-                                       recipe__id=recipe_id).exists():
-            raise ValidationError('Рецепт уже добавлен в список покупок')
-        return data
+        validators = [serializers.UniqueTogetherValidator(
+            queryset=ShoppingCart.objects.all(),
+            fields=('user', 'recipe'),
+            message='Рецепт уже добавлен в список покупок'
+        )]
 
     def to_representation(self, instance):
         request = self.context.get('request')
