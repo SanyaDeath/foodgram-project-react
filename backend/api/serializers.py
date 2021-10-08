@@ -4,7 +4,6 @@ from django.db.models import F
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from rest_framework.validators import UniqueTogetherValidator
 from users.serializers import CustomUserSerializer
 from .models import (Favorite, Ingredient, IngredientRecipe, Recipe,
                      ShoppingCart, Tag)
@@ -163,17 +162,13 @@ class FavouriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favorite
-        validators = [serializers.UniqueTogetherValidator(
-            queryset=model.objects.all(),
-            fields=('user', 'recipe'),
-            message=('Рецепт уже добавлен в избранное!')
-        )]
+        fields = ('user', 'recipe')
 
     def validate(self, data):
         user = data['user']
         recipe_id = data['recipe'].id
         if Favorite.objects.filter(user=user, recipe__id=recipe_id).exists():
-            raise UniqueTogetherValidator.message
+            raise ValidationError('Рецепт уже добавлен в избранное!')
         return data
 
     def to_representation(self, instance):
@@ -188,11 +183,6 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShoppingCart
-        validators = [serializers.UniqueTogetherValidator(
-            queryset=model.objects.all(),
-            fields=('user', 'recipe'),
-            message=('Рецепт уже добавлен в список покупок')
-        )]
         fields = ('user', 'recipe')
 
     def validate(self, data):
@@ -200,7 +190,7 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
         recipe_id = data['recipe'].id
         if ShoppingCart.objects.filter(user=user,
                                        recipe__id=recipe_id).exists():
-            raise UniqueTogetherValidator.message
+            raise ValidationError('Рецепт уже добавлен в список покупок')
         return data
 
     def to_representation(self, instance):
