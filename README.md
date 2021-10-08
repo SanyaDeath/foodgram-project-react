@@ -3,8 +3,6 @@
 
 Демоверсия сайта: <http://84.252.128.134>
 
-
-
 Это проект Foodgram, сервис с возможностями:
 - Регистрация пользователей,
 - Создание, изменение и удаление рецептов.
@@ -30,6 +28,25 @@
 
     $ ssh yc-user@<IP адрес>
 
+## Подготовка и запуск проекта
+### Склонировать репозиторий на локальную машину:
+```
+git clone https://github.com/sanyadeath/foodgram-project-react
+```
+### Перейти в папку с проектом:
+```
+cd foodgram-project-react
+```
+### В папке **backend** создать файл .env с содержимым переменных окружения:
+
+```
+DB_ENGINE=db
+POSTGRES_DB=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+DB_HOST=postgres
+DB_PORT=postgres
+```
 
 ### Установка докер
 https://docs.docker.com/engine/install/
@@ -58,4 +75,4 @@ https://docs.docker.com/engine/install/
 ### Работал над проектом: Алексей A. Белов - ученик Яндекс.Практикум
 https://hub.docker.com/repository/docker/sanyadeath/foodgram - dockerhub - dockerhub
 
-http://84.252.128.134/ - облако 
+http://84.252.128.134/ - облако
