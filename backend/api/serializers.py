@@ -60,13 +60,13 @@ class ShowRecipeFullSerializer(serializers.ModelSerializer):
 
     def get_is_favorited(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_anonymous:
+        if not request.user.is_authenticated:
             return False
         return Favorite.objects.filter(recipe=obj, user=request.user).exists()
 
     def get_is_in_shopping_cart(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_anonymous:
+        if not request.user.is_authenticated:
             return False
         return ShoppingCart.objects.filter(recipe=obj,
                                            user=request.user).exists()
@@ -130,8 +130,7 @@ class AddRecipeSerializer(serializers.ModelSerializer):
         author = self.context.get('request').user
         tags_data = validated_data.pop('tags')
         ingredients_data = validated_data.pop('ingredients')
-        recipe = Recipe.objects.bulk_create(
-            [Recipe(author=author), (validated_data)])
+        recipe = Recipe.objects.create(author=author, **validated_data)
         self.add_recipe_ingredients(ingredients_data, recipe)
         recipe.tags.set(tags_data)
         return recipe
